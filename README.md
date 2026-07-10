@@ -24,4 +24,4 @@ It uses simulated data for educational purposes.
 ## Demo
 
 Live:
-https://yourusername.github.io/wifi-security-analyzer/
+https://reehanmtalagade007-byte.github.io/-Wi-Fi-Security-Analyzer-Demo-Simulated-Wi-Fi-Configurations-/
