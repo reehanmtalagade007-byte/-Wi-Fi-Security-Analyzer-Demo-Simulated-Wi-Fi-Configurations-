@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wi-Fi Security Analyzer</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ HEADER / NAVIGATION ============ -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <div class="logo">
+        <span class="logo-icon">◉</span>
+        <span class="logo-text">Wi-Fi Security Analyzer</span>
+      </div>
+      <nav class="nav-menu">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#analyzer">Analyzer</a>
+        <a href="#guide">Security Guide</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HERO SECTION ============ -->
+  <section class="hero" id="dashboard">
+    <div class="hero-inner">
+      <h1 class="hero-title">Analyze Your Wi-Fi Security Before Attackers Do</h1>
+      <p class="hero-subtitle">Simulate configurations, evaluate encryption strength, and discover vulnerabilities.</p>
+      <div class="hero-badges">
+        <span class="badge">🔒 Encryption Analysis</span>
+        <span class="badge">📶 Live Simulation</span>
+        <span class="badge">🛡️ Risk Detection</span>
+      </div>
+    </div>
+    <div class="hero-glow"></div>
+  </section>
+
+  <!-- ============ MAIN LAYOUT ============ -->
+  <main class="main-grid">
+
+    <!-- ============ ANALYZER FORM ============ -->
+    <section class="card form-card" id="analyzer">
+      <h2 class="card-title"><span class="title-icon">⚙️</span> Wi-Fi Configuration Simulator</h2>
+      <p class="card-subtitle">Set up your network parameters to run a full security scan.</p>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label for="ssid">Network Name (SSID)</label>
+          <input type="text" id="ssid" placeholder="e.g. HomeNetwork_5G" value="MyHomeNetwork" />
+        </div>
+
+        <div class="field">
+          <label for="routerType">Router Type</label>
+          <select id="routerType">
+            <option value="Home Router">Home Router</option>
+            <option value="Enterprise Router">Enterprise Router</option>
+            <option value="Public Wi-Fi">Public Wi-Fi</option>
+            <option value="Mobile Hotspot">Mobile Hotspot</option>
+            <option value="Custom Network">Custom Network</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="encryption">Encryption Type</label>
+          <select id="encryption">
+            <option value="WPA3">WPA3</option>
+            <option value="WPA2-AES" selected>WPA2-AES</option>
+            <option value="WPA2-TKIP">WPA2-TKIP</option>
+            <option value="WPA">WPA</option>
+            <option value="WEP">WEP</option>
+            <option value="Open">Open Network</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="firmware">Firmware Status</label>
+          <select id="firmware">
+            <option value="Updated">Updated</option>
+            <option value="Outdated">Outdated</option>
+          </select>
+        </div>
+
+        <div class="field full-width">
+          <label for="pwStrength">Password Strength: <span id="pwStrengthLabel" class="value-tag">Medium</span></label>
+          <input type="range" id="pwStrength" min="0" max="4" step="1" value="2" class="slider" />
+          <div class="slider-scale">
+            <span>Very Weak</span><span>Weak</span><span>Medium</span><span>Strong</span><span>Very Strong</span>
+          </div>
+        </div>
+
+        <div class="field full-width">
+          <label for="pwLength">Password Length: <span id="pwLengthLabel" class="value-tag">12</span> characters</label>
+          <input type="range" id="pwLength" min="0" max="30" step="1" value="12" class="slider" />
+        </div>
+
+        <div class="toggle-row">
+          <div class="toggle-item">
+            <span>Hidden Network</span>
+            <label class="switch">
+              <input type="checkbox" id="hiddenNetwork" />
+              <span class="slider-toggle"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span>MAC Filtering</span>
+            <label class="switch">
+              <input type="checkbox" id="macFiltering" />
+              <span class="slider-toggle"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span>Firewall</span>
+            <label class="switch">
+              <input type="checkbox" id="firewall" checked />
+              <span class="slider-toggle"></span>
+            </label>
+          </div>
+
+          <div class="toggle-item">
+            <span>WPS</span>
+            <label class="switch">
+              <input type="checkbox" id="wps" checked />
+              <span class="slider-toggle"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button class="btn btn-primary" id="analyzeBtn">Analyze Network</button>
+        <button class="btn btn-secondary" id="randomBtn">Generate Random Network</button>
+        <button class="btn btn-ghost" id="resetBtn">Reset Analyzer</button>
+      </div>
+    </section>
+
+    <!-- ============ SCORE DASHBOARD ============ -->
+    <section class="card score-card">
+      <h2 class="card-title"><span class="title-icon">📊</span> Security Score</h2>
+
+      <div class="score-meter">
+        <svg viewBox="0 0 200 200" class="score-svg">
+          <circle cx="100" cy="100" r="85" class="score-track" />
+          <circle cx="100" cy="100" r="85" class="score-progress" id="scoreProgress" />
+        </svg>
+        <div class="score-value">
+          <span id="scoreNumber">0</span>
+          <span class="score-max">/100</span>
+        </div>
+      </div>
+
+      <div class="score-status" id="scoreStatus">Awaiting Analysis</div>
+      <p class="score-hint">Click "Analyze Network" to generate your score.</p>
+    </section>
+
+    <!-- ============ REPORT SECTION ============ -->
+    <section class="card report-card" id="reportSection" style="display:none;">
+      <h2 class="card-title"><span class="title-icon">📄</span> Detailed Security Report</h2>
+
+      <div class="report-grid">
+        <div class="report-block">
+          <h3>Network Summary</h3>
+          <ul class="summary-list" id="summaryList"></ul>
+        </div>
+
+        <div class="report-block">
+          <h3>Security Strengths</h3>
+          <ul class="strength-list" id="strengthList"></ul>
+        </div>
+
+        <div class="report-block">
+          <h3>Warnings</h3>
+          <ul class="warning-list" id="warningList"></ul>
+        </div>
+
+        <div class="report-block">
+          <h3>Recommendations</h3>
+          <ul class="recommend-list" id="recommendList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECURITY COMPARISON TABLE ============ -->
+    <section class="card table-card" id="guide">
+      <h2 class="card-title"><span class="title-icon">📶</span> Encryption Security Ranking</h2>
+      <div class="table-wrapper">
+        <table class="security-table">
+          <thead>
+            <tr>
+              <th>Encryption</th>
+              <th>Security Level</th>
+              <th>Recommendation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-excellent">
+              <td>WPA3</td>
+              <td><span class="tag tag-excellent">Excellent</span></td>
+              <td>Recommended</td>
+            </tr>
+            <tr class="row-good">
+              <td>WPA2-AES</td>
+              <td><span class="tag tag-good">Good</span></td>
+              <td>Safe</td>
+            </tr>
+            <tr class="row-medium">
+              <td>WPA2-TKIP</td>
+              <td><span class="tag tag-medium">Medium</span></td>
+              <td>Upgrade</td>
+            </tr>
+            <tr class="row-weak">
+              <td>WPA</td>
+              <td><span class="tag tag-weak">Weak</span></td>
+              <td>Replace</td>
+            </tr>
+            <tr class="row-veryweak">
+              <td>WEP</td>
+              <td><span class="tag tag-veryweak">Very Weak</span></td>
+              <td>Unsafe</td>
+            </tr>
+            <tr class="row-critical">
+              <td>Open</td>
+              <td><span class="tag tag-critical">Critical</span></td>
+              <td>Avoid</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <p>Wi-Fi Security Analyzer — A simulation tool for learning network security concepts.</p>
+    <p class="footer-note">No real networks are scanned or accessed. All data is generated locally in your browser.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
