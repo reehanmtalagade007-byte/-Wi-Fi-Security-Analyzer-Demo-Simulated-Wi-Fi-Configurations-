@@ -24,7 +24,7 @@ It uses simulated data for educational purposes.
 ## Demo
 
 Live:
-https://reehanmtalagade007-byte.github.io/-Wi-Fi-Security-Analyzer-Demo-Simulated-Wi-Fi-Configurations-/
+https://Reehan-MT.github.io/-Wi-Fi-Security-Analyzer-Demo-Simulated-Wi-Fi-Configurations-/
 
 
 
